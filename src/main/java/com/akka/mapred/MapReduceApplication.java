@@ -32,5 +32,9 @@ public class MapReduceApplication {
         String result=(String) Await.result(future, timeout.duration());
         System.out.println(result);
         system.shutdown();
+
+
+
+
     }
 }
