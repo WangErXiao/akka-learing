@@ -1,4 +1,4 @@
-package com.akka.supervisor;
+package com.akka.supervisor.one4one;
 
 import akka.actor.UntypedActor;
 import akka.event.Logging;

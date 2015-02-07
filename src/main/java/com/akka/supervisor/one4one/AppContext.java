@@ -1,4 +1,4 @@
-package com.akka.supervisor;
+package com.akka.supervisor.one4one;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -32,7 +32,7 @@ public class AppContext {
 
         //log.info("Sending value 8 ,no exceptions should be thrown!");
 
-        supervisor.tell(Integer.valueOf(-1),supervisor);
+        supervisor.tell(new Object(),supervisor);
 
         Future<Object> future=Patterns.ask(supervisor,new WorkerActor.Result(),timeout);
 
