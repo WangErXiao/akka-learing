@@ -22,9 +22,9 @@ public class TranserActor extends UntypedActor {
     String toAccount="ABC";
 
 
-    ActorRef from=context().actorOf(Props.create(AccountActor.class,fromAccount,Float.parseFloat("5000")));
+    ActorRef from=context().actorOf(Props.create(AccountActor.class,fromAccount,Float.parseFloat("50000")));
 
-    ActorRef to=context().actorOf(Props.create(AccountActor.class,toAccount,Float.parseFloat("1000")));
+    ActorRef to=context().actorOf(Props.create(AccountActor.class,toAccount,Float.parseFloat("10000")));
 
     Timeout timeout=new Timeout(5, TimeUnit.SECONDS);
 
