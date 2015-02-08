@@ -3,7 +3,6 @@ package com.akka.monitor;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import akka.actor.Terminated;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import akka.pattern.Patterns;
@@ -29,19 +28,13 @@ public class AppContext {
 
         ActorRef supervisorActor=system.actorOf(Props.create(SupervisorActor.class,workerActor));
 
-
         ActorRef monitorActor=system.actorOf(Props.create(MonitorActor.class));
 
         RegisterWorker registerWorker=new RegisterWorker(supervisorActor,workerActor);
 
-        //monitorActor.tell(Terminated.apply(workerActor,true,true),ActorRef.noSender());
-
         monitorActor.tell(registerWorker, supervisorActor);
 
-
-        /*supervisorActor.tell(Integer.valueOf(10),supervisorActor);*/
-
-        supervisorActor.tell(new Object(),supervisorActor);
+        supervisorActor.tell(Integer.valueOf(100),supervisorActor);
 
         Timeout timeout=new Timeout(Duration.create(1000, TimeUnit.SECONDS));
 
@@ -50,6 +43,10 @@ public class AppContext {
         try {
             Integer result=(Integer)Await.result(future,timeout.duration());
             log.info("Value Received -> {}",result);
+
+            //termination workerActor
+            supervisorActor.tell(new DeadWorker(),ActorRef.noSender());
+            //supervisorActor.tell(new Object(),ActorRef.noSender());
         } catch (Exception e) {
             e.printStackTrace();
         }
